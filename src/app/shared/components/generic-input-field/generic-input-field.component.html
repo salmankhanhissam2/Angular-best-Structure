@@ -1,0 +1,29 @@
+<div class="input-group">
+    <label [for]="label">{{ label }}</label>
+    <input
+      [id]="label"
+      [type]="type"
+      [placeholder]="placeholder"
+      [formControl]="control"
+      (blur)="onTouched()"
+      [class.error]="control.invalid && control.touched"
+    />
+    <div *ngIf="control.invalid && control.touched" class="error-message">
+      <!-- Handle Required Error -->
+      <ng-container *ngIf="control.errors && control.errors['required']">
+        {{ label }} is required.
+      </ng-container>
+  
+      <!-- Handle Email Error -->
+      <ng-container *ngIf="control.errors && control.errors['email']">
+        Please enter a valid email address.
+      </ng-container>
+  
+      <!-- Handle Minlength Error -->
+      <ng-container *ngIf="control.errors && control.errors['minlength']">
+        {{ label }} must be at least 
+        {{ control.errors['minlength']['requiredLength'] ?? 0 }} characters.
+      </ng-container>
+    </div>
+  </div>
+  
